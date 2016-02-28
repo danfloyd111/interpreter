@@ -19,3 +19,5 @@ Here is an example of a pattern:
   (also called "default option") associated with the symbol "_".
   
 I also wrote a simple program to test this project (included in this repo with an assert module).
+
+**!!!**Some comments are still in Italian (my native language), so I apologize, I will translate them to En as soon as possible.
