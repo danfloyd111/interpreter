@@ -1,4 +1,4 @@
-(* PAOLINI DANIELE - MAT. 444260 *)
+(* PAOLINI DANIELE *)
 
 (* shortcuts *)
 let _zerodiv = "division by zero"
@@ -9,24 +9,24 @@ let _nonop   = "unrecognized operation"
 let _nonfun  = "non function parameter"
 let _nomatch = "expression not matched"
 
-(* definizione di ambiente *)
+(* environment definition *)
 (*
-  tipo polimorfo di funzione che prende come parametro un identificatore, concretizzato da una stringa, e restituisce
-  il valore di tipo 't ad esso associato
+  polymorphic function type accepting an identifier as parameter (concretized by a string), and returns
+  the associated value wich type is 't
 *)
 type 't _env = string -> 't
 
-(* definizione di pattern *)
+(* pattern definition *)
 (*
-  tipo polimorfo per la costruzione di pattern, come vedremo verrà caratterizzato sotto in modo da poterlo sfruttare
-  per la creazione di pattern su espressioni
+  polymorphic type for pattern definition, as we'll see it'll be specified soon so we'll able to use it for pattern creations
+  on expressions
 *)
 type 't _pattern =
   | Default of 't
   | Elem    of 't * 't
   | Comp    of 't * 't * 't _pattern
 
-(* espressioni: la sintassi astratta del linguaggio, tutto ciò che l'utente può esprimere *)
+(* expressions: the language's abstract syntax, all that the user can define *)
 type exp =
   | Ide    of string
   | EInt   of int
@@ -37,22 +37,22 @@ type exp =
   | Op     of string * exp * exp
   | If     of exp * exp * exp
   | Let    of string * exp * exp
-  | FunDec of string * exp             (* dichiarazione di funzione con singolo parametro *)
-  | FunApp of exp * exp                (* applicazione di funzione con singolo parametro *)
-  | Try    of string * exp * exp _pattern;; (* costrutto try ide with exp in pattern *)
+  | FunDec of string * exp             (* single parameter function definition *)
+  | FunApp of exp * exp                (* single parameter function execution *)
+  | Try    of string * exp * exp _pattern;; (* try ide with exp in pattern *)
 
 (*
-  N.B. per estendere il linguaggio con la possibilità di dichiarare ed applicare funzioni con più di un parametro
-  si potrebbe utilizzare una lista di string * exp ed una funzione helper per gestire quest'ultima
+  In order to extend the language with the possibility of multiple parameter function definition (and execution)
+  we should use a list of string * exp and an helper function to manage that list
 *)
 
-(* valori denotabili ed esprimibili *)
+(* expressible and denotable values *)
 type value =
   | Int  of int
   | Bool of bool
-  | Fun  of string * exp * value _env (* parametro, espressione ed ambiente associato al momento della definizione *)
-(*| Fun  of string * exp                 dynamic scoping: parametro ed espressione, l'ambiente associato è quello
-                                         presente al momento dell'applicazione
+  | Fun  of string * exp * value _env (* parameter, expression and environment binded when defined *)
+(*| Fun  of string * exp                 dynamic scoping: parameter and expression, environment is binded 
+                                         when the function is executed
 *)
   | Novalue;;
 
