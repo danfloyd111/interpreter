@@ -1,4 +1,4 @@
-# PAOLINI DANIELE - MAT. 444260
+# PAOLINI DANIELE
 # Interpreter makefile
 
 # variables
